@@ -1,4 +1,4 @@
-class Product:
+"""class Product:
     def __init__(self, name, price, quantity):
         if not name:
             raise ValueError("Name may not be empty")
@@ -20,7 +20,8 @@ class Product:
     def set_quantity(self, quantity):
         if quantity == 0:
             deactivate(self)
-        return self.quantity
+        self.quantity += quantity
+        return quantity
 
     def is_active(self):
         if self.quantity > 0:
@@ -36,7 +37,11 @@ class Product:
             print(f"Not enough quantity to buy. Only {self.quantity} in the shop.")
             return 0
         self.quantity -= quantity
-        return self.price * quantity
+        return self.price * quantity"""
+
+
+from products import Product
+from store import Store
 
 bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
 mac = Product("MacBook Air M2", price=1450, quantity=100)
@@ -49,4 +54,15 @@ bose.show()
 mac.show()
 
 bose.set_quantity(1000)
-bose.show()()
+bose.show()
+
+
+product_list = [Product("MacBook Air M2", price=1450, quantity=100),
+                Product("Bose QuietComfort Earbuds", price=250, quantity=500),
+                Product("Google Pixel 7", price=500, quantity=250),
+               ]
+
+best_buy = Store(product_list)
+product_list = best_buy.get_all_products()
+print(best_buy.get_total_quantity())
+print(best_buy.order([(product_list[0], 1), (product_list[1], 2)]))

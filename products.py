@@ -20,7 +20,8 @@ class Product:
     def set_quantity(self, quantity):
         if quantity == 0:
             deactivate(self)
-        return self.quantity
+        self.quantity += quantity
+        return quantity
 
     def is_active(self):
         if self.quantity > 0:
