@@ -10,47 +10,48 @@ class Product:
         self.name = name
         self.price = price
         self.quantity = quantity
+        self.active = True
 
     def get_quantity(self):
         return self.quantity
 
-    def deactivate(selfself):
-        pass
+    def activate(self):
+       self.active = True
+       print(f"Product '{self.name}' is activated.")
+
+    def deactivate(self):
+        self.active = False
+        print(f"Product '{self.name}' is deactivated.")
+
 
     def set_quantity(self, quantity):
-        if quantity == 0:
-            deactivate(self)
-        self.quantity += quantity
-        return quantity
+        self.quantity = quantity
+        if self.quantity == 0:
+            self.deactivate()
+        return self.quantity
 
     def is_active(self):
-        if self.quantity > 0:
+        if self.active == True:
+            print(f"Product '{self.name}' is active.")
             return True
         else:
+            print(f"Product '{self.name}' is inactive.")
             return False
 
     def show(self):
-        print(f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        return f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity):
-        if quantity > self.quantity:
-            print(f"Not enough quantity to buy. Only {self.quantity} in the shop.")
-            return 0
-        self.quantity -= quantity
-        return self.price * quantity
+        bill = 0
 
-bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-mac = Product("MacBook Air M2", price=1450, quantity=100)
-
-print(bose.buy(50))
-print(mac.buy(100))
-print(mac.is_active())
-
-bose.show()
-mac.show()
-
-bose.set_quantity(1000)
-bose.show()
+        try:
+            if quantity <= self.quantity and self.active == True:
+                self.quantity = self.quantity - quantity
+                bill = self.price * quantity
+                print(f"Bill: {bill}")
+                return bill
+        except Exception as e:
+            print(f"Not enough quantity to buy. Only {self.quantity} in the shop:{e}")
 
 
 

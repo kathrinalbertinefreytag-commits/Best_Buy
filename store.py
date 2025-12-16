@@ -18,7 +18,7 @@ class Store:
 
     def get_total_quantity(self):
         """Returns the sum of all product quantities."""
-        return sum(p.quantity for p in self.get_all_products())
+        return sum(p.quantity for p in self.product_list)
 
     def order(self, shopping_list) -> float:
         """
@@ -26,10 +26,11 @@ class Store:
         """
         total_order = 0.0
         for product, quantity in shopping_list:
-            """if not isinstance(product, Product):
+            if not isinstance(product, Product):
                 raise TypeError("Each tuple must contain a Product")
-            if not isinstance(amount, int) or amount <= 0:
-                raise ValueError("Quantity must be a positive integer")"""
+            if not isinstance(quantity, int) or quantity <= 0:
+                raise ValueError("Quantity must be a positive integer")
+
 
             total_order += product.buy(quantity)
 

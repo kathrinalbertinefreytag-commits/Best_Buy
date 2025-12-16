@@ -1,38 +1,13 @@
-from products import Product
-from store import Store
-
-bose = Product("Bose QuietComfort Earbuds", price=250, quantity=500)
-mac = Product("MacBook Air M2", price=1450, quantity=100)
-
-print(bose.buy(50))
-print(mac.buy(100))
-print(mac.is_active())
-
-bose.show()
-mac.show()
-
-bose.set_quantity(1000)
-bose.show()
-
-
-product_list = [Product("MacBook Air M2", price=1450, quantity=100),
-                Product("Bose QuietComfort Earbuds", price=250, quantity=500),
-                Product("Google Pixel 7", price=500, quantity=250),
-               ]
-
-best_buy = Store(product_list)
-product_list = best_buy.get_all_products()
-print(best_buy.get_total_quantity())
-print(best_buy.order([(product_list[0], 1), (product_list[1], 2)]))
-
 import products
 import store
+
 
 # setup initial stock of inventory
 product_list = [ products.Product("MacBook Air M2", price=1450, quantity=100),
                  products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
                  products.Product("Google Pixel 7", price=500, quantity=250)
                ]
+
 best_buy = store.Store(product_list)
 
 
@@ -66,7 +41,7 @@ def start(store_object):
 
             # Show products with index numbers
             for i, product in enumerate(all_products):
-                print(f"{i}: {product}")
+                print(f"{i}: {product.show()}")
 
             order_list = []
             while True:
@@ -81,19 +56,22 @@ def start(store_object):
 
                 quantity = input("Enter quantity: ")
 
+
                 if not quantity.isdigit() or int(quantity) <= 0:
                     print("Invalid quantity.")
                     continue
 
                 product = all_products[int(index)]
                 order_list.append((product, int(quantity)))
+                for product, quantity in order_list:
+                    print(product.show(), quantity)
 
-            if order_list:
-                try:
-                    total_price = store_object.order(order_list)
-                    print(f"\nOrder completed! Total cost: {total_price} dollars.")
-                except Exception as e:
-                    print("Error:", e)
+                if order_list:
+                    try:
+                        total_price = store_object.order(order_list)
+                        print(f"\nOrder completed! Total cost: {total_price} dollars.")
+                    except Exception as e:
+                        print("Error:", e)
 
         # 4. Quit
         elif choice == "4":
@@ -102,3 +80,6 @@ def start(store_object):
 
         else:
             print("Invalid option. Try again.")
+
+if __name__ == "__main__":
+    start(best_buy)
