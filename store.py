@@ -2,7 +2,7 @@ from products import Product
 
 class Store:
 
-    def __init__(self, product_list = []):
+    def __init__(self, product_list=None):
         self.product_list = product_list
 
     def add_product(self, product):
@@ -18,7 +18,7 @@ class Store:
 
     def get_total_quantity(self):
         """Returns the sum of all product quantities."""
-        return sum(p.quantity for p in self.product_list)
+        return sum(p.quantity for p in self.get_all_products())
 
     def order(self, shopping_list) -> float:
         """

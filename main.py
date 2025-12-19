@@ -28,7 +28,7 @@ def start(store_object):
             all_products = store_object.get_all_products()
             print("\n--- Products in Store ---")
             for product in all_products:
-                print(product)
+                print(product.show())
 
         # 2. Show total amount
         elif choice == "2":
@@ -63,15 +63,15 @@ def start(store_object):
 
                 product = all_products[int(index)]
                 order_list.append((product, int(quantity)))
-                for product, quantity in order_list:
-                    print(product.show(), quantity)
+            for product, quantity in order_list:
+                print(product.show(), quantity)
 
-                if order_list:
-                    try:
-                        total_price = store_object.order(order_list)
-                        print(f"\nOrder completed! Total cost: {total_price} dollars.")
-                    except Exception as e:
-                        print("Error:", e)
+            if order_list:
+                try:
+                    total_price = store_object.order(order_list)
+                    print(f"\nOrder completed! Total cost: {total_price} dollars.")
+                except Exception as e:
+                    print("Error:", e)
 
         # 4. Quit
         elif choice == "4":
