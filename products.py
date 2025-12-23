@@ -16,7 +16,7 @@ class Product:
         return self.quantity
 
     def activate(self):
-       self.active = True
+        self.active = True
 
 
     def deactivate(self):
