@@ -17,41 +17,46 @@ class Product:
 
     def activate(self):
        self.active = True
-       return True
+
 
     def deactivate(self):
         self.active = False
-        return False
 
 
     def set_quantity(self, quantity):
-        self.quantity = quantity
-        if self.quantity == 0:
-            self.deactivate()
         if quantity < 0:
             raise ValueError("Quantity may not be negative")
 
+        self.quantity = quantity
+
+        if self.quantity == 0:
+            self.deactivate()
+
 
     def is_active(self):
-        if self.active == True:
-            return True
-        else:
-            return False
+        return self.active
 
     def show(self):
         return f"Name: {self.name}, Price: {self.price}, Quantity: {self.quantity}"
 
     def buy(self, quantity):
-        bill = 0
+        if quantity <= 0:
+            raise ValueError("Quantity must be greater than 0")
 
+        if not self.active:
+            raise Exception("Product is not active")
 
-        if quantity <= self.quantity and quantity > 0 and self.active == True:
-            self.quantity = self.quantity - quantity
-            bill = self.price * quantity
-            #print(f"Bill: {bill}")
-            return bill
-        else:
-            deactivate(self)
+        if quantity > self.quantity:
+            raise Exception("Not enough items in stock")
+
+        self.quantity -= quantity
+        bill = self.price * quantity
+
+        if self.quantity == 0:
+            self.deactivate()
+
+        return bill
+
 
 
 
